@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Components/Login';
 import LoginDocente from './Components/Users/Docente/LoginDocente';
 import LoginAdmin from './Components/Users/Admin/LoginAdmin';
+import HomeDocente from './Components/Users/Docente/HomeDocente';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/Users/Docente/LoginDocente" element={<LoginDocente />} />
         <Route path="/Users/Admin/LoginAdmin" element={<LoginAdmin />} />
+        <Route path="/Componentes/Users/Docente/HomeDocente" element={<HomeDocente/>} />
       </Routes>
     </Router>
   );

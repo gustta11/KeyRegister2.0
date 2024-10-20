@@ -1,0 +1,30 @@
+.chave-observação {
+    display: flex;
+    flex-direction: row;
+    margin-top: 6%;
+    align-items: center;
+    padding-left: 30%;
+}
+
+.titulo-docente h2 {
+    margin-top: 0;
+}
+
+.chave {
+    display: flex;
+    flex-direction: column;
+}
+
+button{
+    width: 200px;
+}
+
+.observaçao {
+    display: flex;
+    flex-direction: column;
+}
+
+.linha {
+    height: 400px;
+    background-color: black;
+}

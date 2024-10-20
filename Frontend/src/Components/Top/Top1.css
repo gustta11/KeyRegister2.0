@@ -6,5 +6,23 @@
     width: 100%;
     padding-top: 1%;
     padding-bottom: 1%;
+
+}
+.subtopo{
+    width: 100%;
+    background-color: #0011254e;
+    margin-top: 0;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
 }
 
+.subtopo h2{
+    margin-top: 1%;
+    color: black;
+    font-size: 22px;
+    text-align:start;
+}
+.subtopo img{
+   margin-left: 86%;
+}

@@ -1,6 +1,6 @@
 import './Login.css'
 import Top1 from './Top/Top1';
-import users from '/Users/Administrador/Downloads/Key Register 2.0/Frontend/public/users.png';
+import users from '../../public/users.png';
 import { useNavigate } from 'react-router-dom';
 import { MdAdminPanelSettings } from "react-icons/md";
 import { FaChalkboardTeacher } from "react-icons/fa";
