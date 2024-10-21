@@ -5,6 +5,18 @@ import Inscription from '../../../../public/inscription.png';
 import './HomeDocente.css';
 
 function HomeDocente() {
+  const navigate = useNavigate();
+
+  const handleRetirarChave = () => {
+    navigate('/Components/Users/Docente/RetirarChave');
+  };
+  const handleDevolverChave = () => {
+    navigate('/Components/Users/Docente/DevolverChave');
+  };
+  const handleObservacoes = () => {
+    navigate('/Components/Users/Docente/Observacoes');
+  };
+
   return (
     <>
       <Top2 />
@@ -12,15 +24,15 @@ function HomeDocente() {
       <div className="chave-observação">
         <div className="chave">
           <img className="photo" src={Lease} />
-          <button>Retirar chave</button>
-          <button>Devolver Chave</button>
+          <button onClick={handleRetirarChave}>Retirar chave</button>
+          <button onClick={handleDevolverChave}>Devolver Chave</button>
         </div>
 
         <div className="linha">0</div>
 
         <div className="observaçao">
           <img src={Inscription} />
-          <button>Observações</button>
+          <button onClick={handleObservacoes}>Observações</button>
         </div>
 
       </div >

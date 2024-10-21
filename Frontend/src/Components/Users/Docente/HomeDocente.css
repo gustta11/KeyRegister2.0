@@ -3,11 +3,12 @@
     flex-direction: row;
     margin-top: 6%;
     align-items: center;
-    padding-left: 30%;
+    padding-left: 22%;
 }
 
 .titulo-docente h2 {
     margin-top: 0;
+    color: black;
 }
 
 .chave {
@@ -18,13 +19,24 @@
 button{
     width: 200px;
 }
+.chave img{
+    width: 15rem;
+}
+
+.observaçao img{
+    width: 14rem;
+    margin-top: -12%;
+    margin-left: 0.80%;
+}
 
 .observaçao {
+    margin-left: 16%;
     display: flex;
     flex-direction: column;
 }
 
 .linha {
+    margin-left:15.80%;
     height: 400px;
     background-color: black;
 }
