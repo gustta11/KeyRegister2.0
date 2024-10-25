@@ -15,6 +15,7 @@
     height: 60px;
     display: flex;
     flex-direction: row;
+   
 }
 
 .subtopo h2{
@@ -23,6 +24,9 @@
     font-size: 22px;
     text-align:start;
 }
+
 .subtopo img{
    margin-left: 86%;
+   width: 3,5%;
+   height: auto;
 }
