@@ -9,12 +9,30 @@ const LoginDocente = () => {
   const [matricula, setMatricula] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (matricula === 'docente123') {
-      navigate('/Componentes/Users/Docente/HomeDocente');
-    } else {
-      alert('Login ou senha incorretos');
+
+    try {
+      const response = await fetch('http://localhost:5000/api/reservas/matricula', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ matricula_docentes: matricula }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        
+        navigate('/Componentes/Users/Docente/HomeDocente');
+      } else {
+
+        alert(data.message || 'Matrícula não encontrada');
+      }
+    } catch (error) {
+      console.error('Erro ao conectar ao servidor:', error);
+      alert('Erro ao conectar ao servidor. Tente novamente mais tarde.');
     }
   };
 
@@ -26,15 +44,13 @@ const LoginDocente = () => {
         <div className='icon-buttons'>
           <img className='photo' src={Docente} alt="Logo" />
           <form className='inputs-docente' onSubmit={handleSubmit}>
-
             <h3>Matrícula <LiaKeySolid /></h3>
             <input 
-              type="password" 
+              type="text" 
               value={matricula} 
               onChange={(e) => setMatricula(e.target.value)} 
               required
             />
-            
             <button type="submit">Entrar</button>
           </form>
         </div>
