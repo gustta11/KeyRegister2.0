@@ -26,6 +26,18 @@ const Docente = {
         });
     },
 
+    // Função para atualizar o horário final na tabela reservas para um docente específico
+    updateReservaHorarioFinal: (id_docentes, horario_final, callback) => {
+        // Consulta SQL para atualizar o campo horario_final
+        const query = 'UPDATE reservas SET horario_final = ? WHERE docentes_id = ?';
+        
+        // Executa a consulta com o horário final e ID do docente
+        db.query(query, [horario_final, id_docentes], (err, result) => {
+            if (err) return callback(err, null); // Retorna erro, se houver
+            callback(null, result); // Retorna o resultado da atualização
+        });
+    },
+
     // Função para buscar reservas detalhadas de um docente, incluindo informações de várias tabelas relacionadas
     findReservasByDocenteId: (id_docentes, callback) => {
         // Consulta SQL com JOIN para combinar as tabelas relacionadas e retornar os campos solicitados
@@ -37,6 +49,7 @@ const Docente = {
                 d.nome_docentes AS docente_nome,   -- Nome do docente
                 disc.disciplinas_nome AS disciplina_nome,  -- Nome da disciplina
                 r.horario_inicial,                 -- Horário inicial da reserva
+                r.horario_final,                   -- Horário final da reserva
                 r.data                             -- Data da reserva
             FROM 
                 reservas r                         -- Tabela principal (reservas)

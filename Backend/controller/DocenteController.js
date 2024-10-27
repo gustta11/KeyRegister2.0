@@ -1,16 +1,14 @@
-import Docente from '../model/DocenteModel.js'; // Importa o modelo Docente para interagir com o banco de dados
+import Docente from '../model/DocenteModel.js';
 
 // Função para buscar reservas pelo número de matrícula do docente
 const getReservasByMatricula = (req, res) => {
-    const { matricula_docentes } = req.body; // Extrai a matrícula do corpo da requisição
+    const { matricula_docentes } = req.body;
 
-    // Verifica se a matrícula foi fornecida
     if (!matricula_docentes) {
         console.error('Matrícula não informada');
         return res.status(400).json({ message: 'Matrícula não informada' });
     }
 
-    // Busca o ID do docente baseado na matrícula fornecida
     Docente.findIdByMatricula(matricula_docentes, (err, id_docentes) => {
         if (err) {
             console.error('Erro ao buscar docente:', err);
@@ -21,34 +19,65 @@ const getReservasByMatricula = (req, res) => {
             return res.status(404).json({ message: 'Docente não encontrado' });
         }
 
-        // Obtém o horário atual e a data para atualizar o campo da reserva
-        const horario_inicial = new Date().toLocaleTimeString('pt-BR', { hour12: false });
-        const data = new Date().toISOString().split('T')[0];
-
-        // Atualiza o horário inicial e a data para o docente identificado
-        Docente.updateReservaHorarioData(id_docentes, horario_inicial, data, (err, result) => {
+        Docente.findReservasByDocenteId(id_docentes, (err, reservas) => {
             if (err) {
-                console.error('Erro ao atualizar horário e data:', err);
-                return res.status(500).json({ message: 'Erro ao atualizar horário e data' });
+                console.error('Erro ao buscar reservas:', err);
+                return res.status(500).json({ message: 'Erro no servidor ao buscar reservas' });
+            }
+            if (reservas.length === 0) {
+                console.warn('Nenhuma reserva encontrada para o docente:', id_docentes);
+                return res.status(404).json({ message: 'Nenhuma reserva encontrada para esse docente' });
             }
 
-            // Busca todas as reservas do docente com informações detalhadas das tabelas associadas
-            Docente.findReservasByDocenteId(id_docentes, (err, reservas) => {
-                if (err) {
-                    console.error('Erro ao buscar reservas:', err);
-                    return res.status(500).json({ message: 'Erro no servidor ao buscar reservas' });
-                }
-                if (reservas.length === 0) {
-                    console.warn('Nenhuma reserva encontrada para o docente:', id_docentes);
-                    return res.status(404).json({ message: 'Nenhuma reserva encontrada para esse docente' });
-                }
-
-                // Retorna as reservas detalhadas como resposta
-                return res.json(reservas);
-            });
+            return res.json(reservas);
         });
     });
 };
 
-export default { getReservasByMatricula }; // Exporta o controlador para uso em rotas
+// Função para atualizar o horário inicial e data ao retirar a chave
+const updateReservaHorarioData = (req, res) => {
+    const { id_docentes } = req.body;
+
+    if (!id_docentes) {
+        console.error('ID do docente não informado');
+        return res.status(400).json({ message: 'ID do docente não informado' });
+    }
+
+    const horario_inicial = new Date().toLocaleTimeString('pt-BR', { hour12: false });
+    const data = new Date().toISOString().split('T')[0];
+
+    Docente.updateReservaHorarioData(id_docentes, horario_inicial, data, (err, result) => {
+        if (err) {
+            console.error('Erro ao atualizar horário e data:', err);
+            return res.status(500).json({ message: 'Erro ao atualizar horário e data' });
+        }
+
+        return res.json({ message: 'Horário inicial e data atualizados com sucesso' });
+    });
+};
+
+// Função para atualizar o horário final ao devolver a chave
+const updateReservaHorarioFinal = (req, res) => {
+    const { id_docentes } = req.body;
+
+    if (!id_docentes) {
+        console.error('ID do docente não informado');
+        return res.status(400).json({ message: 'ID do docente não informado' });
+    }
+
+    const horario_final = new Date().toLocaleTimeString('pt-BR', { hour12: false });
+
+    Docente.updateReservaHorarioFinal(id_docentes, horario_final, (err, result) => {
+        if (err) {
+            console.error('Erro ao atualizar horário final:', err);
+            return res.status(500).json({ message: 'Erro ao atualizar horário final' });
+        }
+
+        return res.json({ message: 'Horário final atualizado com sucesso' });
+    });
+};
+
+export default { getReservasByMatricula, updateReservaHorarioData, updateReservaHorarioFinal };
+
+
 

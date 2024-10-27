@@ -1,9 +1,15 @@
 import express from 'express';
-import docenteController from '../controller/DocenteController.js';
+import DocenteController from '../controller/DocenteController.js';
 
 const router = express.Router();
 
-// Rota para buscar reservas por matrícula do docente
-router.post('/reservas/matricula', docenteController.getReservasByMatricula);
+// Rota para obter reservas pelo número de matrícula
+router.post('/reservas/matricula', DocenteController.getReservasByMatricula);
+
+// Rota para atualizar horário inicial e data ao retirar a chave
+router.post('/reservas/retirar-chave', DocenteController.updateReservaHorarioData);
+
+// Rota para atualizar horário final ao devolver a chave
+router.post('/reservas/devolver-chave', DocenteController.updateReservaHorarioFinal);
 
 export default router;
