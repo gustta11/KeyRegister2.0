@@ -19,13 +19,15 @@ const LoginDocente = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ matricula_docentes: matricula }),
+        
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        
+        localStorage.setItem('matricula_docente', matricula);
         navigate('/Componentes/Users/Docente/HomeDocente');
+        
       } else {
 
         alert(data.message || 'Matrícula não encontrada');
