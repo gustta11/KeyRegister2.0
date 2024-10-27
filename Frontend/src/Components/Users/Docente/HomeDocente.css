@@ -1,43 +1,104 @@
-.chave-observação {
-    justify-content: flex-end;
+/* HomeDocente.css */
+
+
+.reservas-lista h2 {
+    font-size: 32px;
+    margin-bottom: 3%;
+}
+
+
+.titulo-docente {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    font-size: 25px;
+}
+
+.photo {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+}
+
+.reservas-lista {
     display: flex;
-    flex-direction: row;
-    margin-top: 6%;
+    flex-direction: column;
     align-items: center;
-    padding-left: 22%;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+
 }
 
-.titulo-docente h2 {
-    margin-top: 0;
-    color: black;
+.reserva-item h3 {
+    text-align: center;
+    align-items: center;
+    margin-top: 2%;
+    margin-bottom: -2%;
+    font-size: 27px;
+
 }
 
-.chave {
+.reserva-item {
+
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    margin: 20px 0;
+    width: 100%;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-button{
-    width: 200px;
-}
-.chave img{
-    width: 15rem;
+
+.reservas-columns {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
-.observaçao img{
-    width: 14rem;
-    margin-top: -12%;
-    margin-left: 0.80%;
-}
 
-.observaçao {
-    margin-left: 16%;
+.column {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    margin: 10px;
 }
 
-.linha {
-    margin-left:15.80%;
-    height: 400px;
-    background-color: black;
+.info-balao {
+    font-size: 22px;
+    background-color: #e0f7fa;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px 0;
+    width: 100%;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.buttons-container button {
+    background-color: #000;
+    color: #fff;
+    border: 50px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 10px;
+    width: 50%;
+}
+
+.buttons-container button:hover {
+    background-color: #2c56eb;
+
 }
