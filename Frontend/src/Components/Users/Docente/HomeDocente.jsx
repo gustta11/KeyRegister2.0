@@ -55,11 +55,12 @@ function HomeDocente() {
     fetchReservas();
   }, [navigate]);
 
+
   // Função para marcar a retirada da chave
   const handleRetirarChave = async (reserva) => {
     try {
       // Faz uma requisição para o endpoint de retirada de chave
-      const response = await fetch(`http://localhost:5000/api/reservas/retirar`, {
+      const response = await fetch(`http://localhost:5000/api/reservas/retirar-chave`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -80,6 +81,32 @@ function HomeDocente() {
       console.error('Erro ao conectar ao servidor:', error);
     }
   };
+
+    // Função para marcar a devolução de chave
+    const handleDevolverChave = async (reserva) => {
+      try {
+        // Faz uma requisição para o endpoint de devolucao de chave
+        const response = await fetch(`http://localhost:5000/api/reservas/devolverr-chave`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            id_docentes: reserva.docentes_id
+          })
+        });
+  
+        // Se a resposta for bem-sucedida, atualiza a lista de reservas
+        if (response.ok) {
+          console.log('Chave devolvida com sucesso!');
+          fetchReservas(); // Recarrega as reservas para exibir o horário atualizado do banco de dados
+        } else {
+          console.error('Erro ao devolver chave:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Erro ao conectar ao servidor:', error);
+      }
+    };
 
   return (
     <>
@@ -116,13 +143,13 @@ function HomeDocente() {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Manipulação de botão */}
                 <div className="buttons-container">
 
                   <button onClick={() => handleRetirarChave(reserva)}>Retirar chave</button>
                   {/* tentativa de fazer com que o botão para devolver a chave fique desativado por padrão */}
-                  <button disabled>Devolver chave</button>
+                  <button onClick={() => handleDevolverChave(reserva)}>Devolver chave</button>
                 </div>
               </div>
             </div>
