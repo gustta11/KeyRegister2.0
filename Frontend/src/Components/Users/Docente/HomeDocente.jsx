@@ -10,6 +10,7 @@ function HomeDocente() {
   const fetchReservas = async () => {
     const matricula = localStorage.getItem('matricula_docente');
     if (!matricula) {
+      console.error('Matrícula não encontrada. Redirecionando para o login.');
       navigate('/login');
       return;
     }
@@ -29,10 +30,11 @@ function HomeDocente() {
       }
 
       const data = await response.json();
+      console.log('Reservas recebidas:', data); // Para verificar a estrutura recebida
       if (Array.isArray(data) && data.length > 0) {
         setReservas(data);
       } else {
-        console.error('Nenhuma reserva encontrada para este docente.');
+        console.warn('Nenhuma reserva encontrada para este docente.');
       }
     } catch (error) {
       console.error('Erro ao conectar ao servidor:', error);
@@ -44,20 +46,28 @@ function HomeDocente() {
   }, [navigate]);
 
   const handleRetirarChave = async (reserva) => {
+    const idDocente = reserva.docentes_id; // Ajuste baseado na estrutura real
+
+    if (!idDocente) {
+      console.error('ID do docente não encontrado na reserva.');
+      return;
+    }
+
     try {
       const response = await fetch(`http://localhost:5000/api/reservas/retirar-chave`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ id_docentes: reserva.docentes_id })
+        body: JSON.stringify({ id_docente: idDocente }) // Envia o ID do docente
       });
 
       if (response.ok) {
         console.log('Chave retirada com sucesso!');
         fetchReservas(); // Recarrega reservas para exibir horário atualizado
       } else {
-        console.error('Erro ao retirar chave:', response.statusText);
+        const errorData = await response.json();
+        console.error('Erro ao retirar chave:', errorData.message);
       }
     } catch (error) {
       console.error('Erro ao conectar ao servidor:', error);
@@ -65,13 +75,20 @@ function HomeDocente() {
   };
 
   const handleDevolverChave = async (reserva) => {
+    const idDocente = reserva.docentes_id; // Ajuste baseado na estrutura real
+
+    if (!idDocente) {
+      console.error('ID do docente não encontrado na reserva.');
+      return;
+    }
+
     try {
       const response = await fetch(`http://localhost:5000/api/reservas/devolver-chave`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ id_docentes: reserva.docentes_id })
+        body: JSON.stringify({ id_docente: idDocente }) // Envia o ID do docente
       });
 
       if (response.ok) {
@@ -90,8 +107,8 @@ function HomeDocente() {
       <Top2 />
       <div className="reservas-lista">
         {reservas.length > 0 ? (
-          reservas.map((reserva, index) => (
-            <div key={index}>
+          reservas.map((reserva) => (
+            <div key={reserva.id}>
               <h2>Seja bem-vindo {reserva.docente_nome}</h2>
               <div className="reserva-item">
                 <h3>Reserva do Docente</h3>
