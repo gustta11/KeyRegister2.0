@@ -6,7 +6,7 @@ import './HomeDocente.css';
 function HomeDocente() {
   const [reservas, setReservas] = useState([]);
   const navigate = useNavigate();
-  const idDocente = localStorage.getItem('id_docente'); // Captura o ID do docente aqui
+  const idDocente = localStorage.getItem('id_docente');
 
   const fetchReservas = async () => {
 

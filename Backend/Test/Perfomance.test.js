@@ -1,5 +1,3 @@
-// Backend/Test/performance.test.js
-
 const request = require('supertest');
 const app = require('../../Frontend/src/App'); 
 
@@ -11,16 +9,16 @@ describe('Teste de Performance para o endpoint /api/reservas/retirar-chave', () 
             .send({ id_docentes: 1 });
         const endTime = Date.now();
 
-        const duration = endTime - startTime; // tempo em milissegundos
+        const duration = endTime - startTime;
         console.log(`Tempo de resposta: ${duration} ms`);
 
         expect(response.status).toBe(200); // verifica se a resposta foi bem-sucedida
         expect(response.body.message).toBe('Horário final atualizado com sucesso');
-        expect(duration).toBeLessThan(200); // espera-se que o tempo de resposta seja menor que 200 ms
+        expect(duration).toBeLessThan(200); 
     });
 
     it('deve manter o desempenho sob carga alta', async () => {
-        const numberOfRequests = 100; // Número de requisições simultâneas
+        const numberOfRequests = 100;
         const requests = [];
 
         for (let i = 0; i < numberOfRequests; i++) {

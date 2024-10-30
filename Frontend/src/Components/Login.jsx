@@ -1,9 +1,9 @@
-import './Login.css';
 import Top1 from './Top/Top1';
 import users from '../../public/users.png';
 import { useNavigate } from 'react-router-dom';
 import { MdAdminPanelSettings } from "react-icons/md";
 import { FaChalkboardTeacher } from "react-icons/fa";
+import './Login.css';
 
 function Login() {
   const navigate = useNavigate();
