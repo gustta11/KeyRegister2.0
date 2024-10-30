@@ -8,7 +8,7 @@ function HomeAdmin (){
     return(
         <>
         <Top1/>
-       
+        <h1>teste</h1>
         </>
     )
 }

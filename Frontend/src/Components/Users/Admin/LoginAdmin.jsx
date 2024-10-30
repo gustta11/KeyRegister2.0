@@ -12,7 +12,7 @@ const LoginAdmin = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (usuario === 'Admin' && senha === 'Admin') {
+    if (usuario === 'a' && senha === 'a') {
       navigate('/Components/Users/Admin/HomeAdmin');
     } else {
       alert('Login ou senha incorretos');
