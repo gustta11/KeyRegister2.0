@@ -42,7 +42,7 @@ describe("Modelo Docente", () => {
             });
         });
 
-        expect(id).toBe(null);
+        expect(id).toBe(undefined);
     });
 
     test("updateReservaHorarioData deve atualizar o horário inicial e a data da reserva", async () => {

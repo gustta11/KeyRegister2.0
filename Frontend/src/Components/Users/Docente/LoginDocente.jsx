@@ -19,17 +19,19 @@ const LoginDocente = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ matricula_docentes: matricula }),
-        
       });
 
       const data = await response.json();
 
       if (response.ok) {
+        // Supondo que o ID do docente esteja na resposta
+        const idDocente = data.id_docentes; // Capture o ID aqui
         localStorage.setItem('matricula_docente', matricula);
-        navigate('/Componentes/Users/Docente/HomeDocente');
-        
-      } else {
+        localStorage.setItem('id_docente', idDocente); // Salve o ID do docente
 
+        // Redirecione para o HomeDocente após o login
+        navigate('/Componentes/Users/Docente/HomeDocente');
+      } else {
         alert(data.message || 'Matrícula não encontrada');
       }
     } catch (error) {

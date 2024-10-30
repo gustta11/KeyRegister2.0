@@ -6,8 +6,10 @@ import './HomeDocente.css';
 function HomeDocente() {
   const [reservas, setReservas] = useState([]);
   const navigate = useNavigate();
+  const idDocente = localStorage.getItem('id_docente'); // Captura o ID do docente aqui
 
   const fetchReservas = async () => {
+
     const matricula = localStorage.getItem('matricula_docente');
     if (!matricula) {
       console.error('Matrícula não encontrada. Redirecionando para o login.');
@@ -30,7 +32,8 @@ function HomeDocente() {
       }
 
       const data = await response.json();
-      console.log('Reservas recebidas:', data); // Para verificar a estrutura recebida
+      console.log('Reservas recebidas:', data); // Adicionado para verificar a estrutura
+
       if (Array.isArray(data) && data.length > 0) {
         setReservas(data);
       } else {
@@ -45,21 +48,30 @@ function HomeDocente() {
     fetchReservas();
   }, [navigate]);
 
-  const handleRetirarChave = async (reservas) => {
-    const idDocentes = reservas.id_docentes; // Ajuste baseado na estrutura real
+  useEffect(() => {
+    if (!idDocente) {
+      // Redirecionar ou mostrar uma mensagem de erro se o ID não estiver disponível
+      console.error("ID do docente não encontrado.");
+      navigate('/login'); // Redireciona para o login se não encontrar o ID
+    }
+  }, [idDocente, navigate]);
 
-    if (!idDocentes) {
-      console.error('ID do docente não encontrado na reserva.');
+  const handleRetirarChave = async () => {
+    console.log('ID do docente:', docentes_id);
+    if (!idDocente) {
+      console.error('ID do docente não encontrado.');
       return;
     }
 
     try {
+      
       const response = await fetch(`http://localhost:5000/api/reservas/retirar-chave`, {
+       
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ id_docentes: idDocentes }) // Envia o ID do docente
+        body: JSON.stringify({ id_docentes: idDocente }), // Envia o ID do docente
       });
 
       if (response.ok) {
@@ -74,11 +86,9 @@ function HomeDocente() {
     }
   };
 
-  const handleDevolverChave = async (reserva) => {
-    const idDocente = reserva.docentes_id; // Ajuste baseado na estrutura real
-
+  const handleDevolverChave = async () => {
     if (!idDocente) {
-      console.error('ID do docente não encontrado na reserva.');
+      console.error('ID do docente não encontrado.');
       return;
     }
 
@@ -88,7 +98,7 @@ function HomeDocente() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ id_docente: idDocente }) // Envia o ID do docente
+        body: JSON.stringify({ id_docentes: idDocente }), // Envia o ID do docente
       });
 
       if (response.ok) {
@@ -138,9 +148,9 @@ function HomeDocente() {
                 </div>
 
                 <div className="buttons-container">
-                  <button onClick={() => handleRetirarChave(reservas)}>Retirar chave</button>
-                  <button 
-                    onClick={() => handleDevolverChave(reserva)}
+                  <button onClick={handleRetirarChave}>Retirar chave</button>
+                  <button
+                    onClick={() => handleDevolverChave()}
                     disabled={!reserva.horario_inicial} // Desabilita se o horário inicial não estiver definido
                   >
                     Devolver chave
