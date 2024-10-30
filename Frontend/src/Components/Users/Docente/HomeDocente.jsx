@@ -45,10 +45,10 @@ function HomeDocente() {
     fetchReservas();
   }, [navigate]);
 
-  const handleRetirarChave = async (reserva) => {
-    const idDocente = reserva.docentes_id; // Ajuste baseado na estrutura real
+  const handleRetirarChave = async (reservas) => {
+    const idDocentes = reservas.id_docentes; // Ajuste baseado na estrutura real
 
-    if (!idDocente) {
+    if (!idDocentes) {
       console.error('ID do docente não encontrado na reserva.');
       return;
     }
@@ -59,7 +59,7 @@ function HomeDocente() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ id_docente: idDocente }) // Envia o ID do docente
+        body: JSON.stringify({ id_docentes: idDocentes }) // Envia o ID do docente
       });
 
       if (response.ok) {
@@ -138,7 +138,7 @@ function HomeDocente() {
                 </div>
 
                 <div className="buttons-container">
-                  <button onClick={() => handleRetirarChave(reserva)}>Retirar chave</button>
+                  <button onClick={() => handleRetirarChave(reservas)}>Retirar chave</button>
                   <button 
                     onClick={() => handleDevolverChave(reserva)}
                     disabled={!reserva.horario_inicial} // Desabilita se o horário inicial não estiver definido
