@@ -7,7 +7,7 @@ describe("Modelo Docente", () => {
     afterEach(() => {
         jest.clearAllMocks(); 
     });
-
+   
     test("findIdByMatricula deve retornar o ID do docente com base na matrícula", async () => {
         const matricula = '100522';
         const expectedId = 1;
@@ -129,4 +129,8 @@ describe("Modelo Docente", () => {
             });
         })).rejects.toThrow("Erro ao buscar reservas");
     });
+    
+    afterAll(() => {
+        db.end();
+      });
 });
