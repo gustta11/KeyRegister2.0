@@ -1,5 +1,4 @@
 import { useState } from "react";
-import './Top1.css'
 import { IoPersonCircle } from "react-icons/io5";
 import logoKG from '../../../public/logoKG.png';
 function Top1 (){

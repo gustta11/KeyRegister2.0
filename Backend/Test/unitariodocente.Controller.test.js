@@ -28,7 +28,7 @@ describe("Modelo Docente", () => {
     });
 
     test("findIdByMatricula deve retornar null se a matrícula não for encontrada", async () => {
-        const matricula = '100522';
+        const matricula = '100520';
 
         // Configura o mock para retornar um resultado simulado
         db.query.mockImplementation((query, params, callback) => {
@@ -88,14 +88,14 @@ describe("Modelo Docente", () => {
         const idDocente = 1;
         const expectedReservas = [
             {
-                turma_nome: "Turma A",
-                sala_nome: "Sala 101",
-                curso_nome: "Curso de Matemática",
-                docente_nome: "Prof. João",
-                disciplina_nome: "Matemática",
-                horario_inicial: "08:00",
-                horario_final: "10:00",
-                data: "2024-10-30"
+                turma_nome: "Desenvolvimento de sistema 2024",
+                sala_nome: "Laboratorio de sistema",
+                curso_nome: "Desenvolvimento de sistema",
+                docente_nome: "Marcos Vinicius",
+                disciplina_nome: "Banco de dados",
+                horario_inicial: "19:40",
+                horario_final: "21:40",
+                data: "2024-10-27"
             }
         ];
 

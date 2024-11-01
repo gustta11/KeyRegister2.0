@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Top2 from "../../Top/Top2";
-import './HomeDocente.css';
+
 
 function HomeDocente() {
   const [reservas, setReservas] = useState([]);
