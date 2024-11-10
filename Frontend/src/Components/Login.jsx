@@ -12,7 +12,7 @@ function Login() {
     navigate('./Components/Users/Docente/LoginDocente');
   };
   const handleAdmin = () => {
-    navigate('./Users/Admin/LoginAdmin');
+    navigate('./Components/Users/Admin/LoginAdmin');
   };
 
   return (

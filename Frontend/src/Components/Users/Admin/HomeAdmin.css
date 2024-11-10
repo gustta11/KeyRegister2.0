@@ -1,0 +1,76 @@
+.home-admin-container {
+  display: flex;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #ccc;
+  padding: 20px;
+  height: 100vh;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 10px 0;
+  cursor: pointer;
+  color: #333;
+}
+
+.sidebar li:hover {
+  color: #000;
+  font-weight: bold;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.centered-box {   
+  width: 1600px;          
+  height: 850px;          
+  max-width: 1600px;      
+  max-height: 850px;      
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: hidden;       
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-table {
+  width: 100%;
+  height: 100%;
+  border-collapse: collapse;
+  overflow-x: auto;
+}
+
+.info-table th, .info-table td {
+  padding: 15px;
+  text-align: left;
+  border: 1px solid #ddd;
+  word-wrap: break-word;  
+}
+
+.info-table th {
+  background-color: #f2f2f2;
+}
+
+.info-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.info-table tr:hover {
+  background-color: #f1f1f1;
+}
