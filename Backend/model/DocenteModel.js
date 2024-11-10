@@ -50,7 +50,8 @@ const Docente = {
                 disc.disciplinas_nome AS disciplina_nome,  -- Nome da disciplina
                 r.horario_inicial,                 -- Horário inicial da reserva
                 r.horario_final,                   -- Horário final da reserva
-                r.data                             -- Data da reserva
+                r.data,                             -- Data da reserva
+                r.docentes_id
             FROM 
                 reservas r                         -- Tabela principal (reservas)
             JOIN 

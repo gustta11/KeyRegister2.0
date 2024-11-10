@@ -36,9 +36,9 @@ const getReservasByMatricula = (req, res) => {
 
 // Função para atualizar o horário inicial e data ao retirar a chave
 const updateReservaHorarioData = (req, res) => {
-    const { id_docentes } = req.body;
+    const { id_docente } = req.body;
 
-    if (!id_docentes) {
+    if (!id_docente) {
         console.error('ID do docente não informado');
         return res.status(400).json({ message: 'ID do docente não informado' });
     }
@@ -46,7 +46,7 @@ const updateReservaHorarioData = (req, res) => {
     const horario_inicial = new Date().toLocaleTimeString('pt-BR', { hour12: false });
     const data = new Date().toISOString().split('T')[0];
 
-    Docente.updateReservaHorarioData(id_docentes, horario_inicial, data, (err, result) => {
+    Docente.updateReservaHorarioData(id_docente, horario_inicial, data, (err, result) => {
         if (err) {
             console.error('Erro ao atualizar horário e data:', err);
             return res.status(500).json({ message: 'Erro ao atualizar horário e data' });
@@ -58,16 +58,16 @@ const updateReservaHorarioData = (req, res) => {
 
 // Função para atualizar o horário final ao devolver a chave
 const updateReservaHorarioFinal = (req, res) => {
-    const { id_docentes } = req.body;
+    const { id_docente } = req.body;
 
-    if (!id_docentes) {
+    if (!id_docente) {
         console.error('ID do docente não informado');
         return res.status(400).json({ message: 'ID do docente não informado' });
     }
 
     const horario_final = new Date().toLocaleTimeString('pt-BR', { hour12: false });
 
-    Docente.updateReservaHorarioFinal(id_docentes, horario_final, (err, result) => {
+    Docente.updateReservaHorarioFinal(id_docente, horario_final, (err, result) => {
         if (err) {
             console.error('Erro ao atualizar horário final:', err);
             return res.status(500).json({ message: 'Erro ao atualizar horário final' });

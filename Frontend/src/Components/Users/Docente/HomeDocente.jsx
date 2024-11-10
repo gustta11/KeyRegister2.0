@@ -46,10 +46,11 @@ function HomeDocente() {
     fetchReservas();
   }, [navigate]);
 
-  const handleRetirarChave = async (reserva) => {
-    console.log('Reserva:', reserva); // Verifique a estrutura
+  const handleRetirarChave = async (reservas) => {
+    console.log('Reserva:', reservas); // Verifique a estrutura
   
-    const idDocente = reserva.docente_id || (reserva.docente && reserva.docente.id_docente); // Acesso condicional
+    const idDocente = reservas.docentes_id
+    console.log(idDocente)
   
     if (!idDocente) {
       console.error('ID do docente não encontrado na reserva.');
@@ -79,8 +80,9 @@ function HomeDocente() {
   
   
   
-  const handleDevolverChave = async (reserva) => {
-    const idDocente = reserva.docente.id_docente; // Acesse o ID corretamente aqui
+  const handleDevolverChave = async (reservas) => {
+    const idDocente = reservas.docentes_id // Acesse o ID corretamente aqui
+    console.log(idDocente)
   
     if (!idDocente) {
       console.error('ID do docente não encontrado na reserva.');
