@@ -1,32 +1,22 @@
-.top{
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+
+  
+  /* Topo */
+  .top {
     background-color: #fdfdfd;
     color: black;
     text-align: center;
     position: relative;
     width: 100%;
-    padding-top: 1%;
-    padding-bottom: 1%;
+    padding-top: 1%; /* Ajuste do padding */
+    padding-bottom: 1%; /* Ajuste do padding */
+    margin-top: 0; /* Remover margem superior */
+  }
+  
 
-}
-.subtopo{
-    width: 100%;
-    background-color: #0011254e;
-    margin-top: 0;
-    height: 60px;
-    display: flex;
-    flex-direction: row;
-   
-}
-
-.subtopo h2{
-    margin-top: 1%;
-    color: black;
-    font-size: 22px;
-    text-align:start;
-}
-
-.subtopo img{
-   margin-left: 86%;
-   width: 3,5%;
-   height: auto;
-}
+  

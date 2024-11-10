@@ -4,6 +4,7 @@ import Docente from '../../../../public/logind.png';
 import './LoginDocente.css';
 import { LiaKeySolid } from "react-icons/lia";
 import { useState } from "react";
+import Rodape from '../../Rodapé/Rodape';
 
 const LoginDocente = () => {
   const [matricula, setMatricula] = useState('');
@@ -65,7 +66,9 @@ const LoginDocente = () => {
             {error && <p className="error-message">{error}</p>}
           </form>
         </div>
+        <Rodape/>
       </div>
+      
     </>
   );
 };

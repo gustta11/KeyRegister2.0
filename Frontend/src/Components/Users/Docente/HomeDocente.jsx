@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Top2 from "../../Top/Top2";
+import Top1 from "../../Top/Top1";
 import './HomeDocente.css';
 
 function HomeDocente() {
@@ -113,7 +113,7 @@ function HomeDocente() {
 
   return (
     <>
-      <Top2 />
+      <Top1 />
       <div className="reservas-lista">
         {reservas.length > 0 ? (
           reservas.map((reserva) => (

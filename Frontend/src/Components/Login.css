@@ -1,41 +1,106 @@
+/* Corpo da página */
 body {
-  background-color: #7DD1F5;
-  align-items: center;
-
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
+  background: radial-gradient(circle, rgba(125, 209, 245, 1) 52%, rgba(1, 18, 150, 0.728) 97%);
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  width: 100%;
   padding: 0;
+  margin: 0;
 }
 
-.icon-buttons {
-  margin-left: 30%;
+/* Container de ícones e botões */
+.icon-buttons1 {
   display: flex;
-  flex-direction: row;
   align-items: center;
+  padding: 3rem;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  width: 50%; /* Mantém a largura de 50% */
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-top: 5rem;
+  margin-bottom: 2rem;
 }
 
-.icon-buttons .photo {
-  margin-top: 10%;
-  width: 30%;
+/* Estilo da imagem */
+.icon-buttons1 .photo {
+  width: 350px;
+  max-width: 300px;
+  margin-right: 9rem;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
 }
 
-.buttons-users {
+.icon-buttons1 .photo:hover {
+  transform: scale(1.05);
+}
+
+/* Botões de usuários */
+.buttons-users1 {
   display: flex;
   flex-direction: column;
-  padding: 5%;
-  margin-top: 10%;
+  gap: 1.5rem;
 }
 
-.buttons-users button {
-  background-color: #2C2C2C;
-  width: 250px;
-  height: 100px;
+.buttons-users1 button {
+  margin-left: -75%;
+  background-color: #2c2c2c;
   color: aliceblue;
-  font-size: 35px;
-  margin-top: 5%;
- border-radius: 15px;
+  font-size: 2rem;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
 
+.buttons-users1 button:hover {
+  background-color: #0e5263;
+}
+
+.buttons-users1 button svg {
+  margin-left: 0.5rem;
+  font-size: 2.5rem;
+}
+
+/* Responsividade para telas de até 768px */
+@media (max-width: 768px) {
+  .icon-buttons1 {
+    flex-direction: column;
+    padding: 1.5rem;
+    width: 95%; /* Aumenta a largura para 95% da tela em dispositivos menores */
+  }
+
+  .icon-buttons1 .photo {
+    margin-right: 0; /* Remove a margem direita da foto */
+    margin-bottom: 1.5rem; /* Adiciona um espaçamento abaixo da imagem */
+    width: 60%;
+  }
+
+  .buttons-users1 button {
+    font-size: 1.8rem;
+    padding: 1rem 1.5rem;
+  }
+}
+
+/* Responsividade para telas de até 480px */
+@media (max-width: 480px) {
+  .icon-buttons1 {
+    padding: 1rem; /* Ajusta o padding em telas menores */
+    width: 95%; /* Aumenta a largura para 95% da tela */
+  }
+
+  .icon-buttons1 .photo {
+    width: 50%; /* Reduz o tamanho da imagem */
+    margin-bottom: 1rem; /* Ajusta o espaçamento inferior */
+  }
+
+  .buttons-users1 button {
+    font-size: 1.5rem;
+    padding: 0.8rem 1rem;
+  }
 }
