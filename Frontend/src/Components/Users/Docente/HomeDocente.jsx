@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Top2 from "../../Top/Top2";
-
+import './HomeDocente.css';
 
 function HomeDocente() {
   const [reservas, setReservas] = useState([]);
@@ -14,7 +14,7 @@ function HomeDocente() {
       navigate('/login');
       return;
     }
-
+  
     try {
       const response = await fetch(`http://localhost:5000/api/reservas/matricula`, {
         method: 'POST',
@@ -23,14 +23,14 @@ function HomeDocente() {
         },
         body: JSON.stringify({ matricula_docentes: matricula })
       });
-
+  
       if (!response.ok) {
         console.error('Erro ao buscar reservas:', response.statusText);
         return;
       }
-
+  
       const data = await response.json();
-      console.log('Reservas recebidas:', data); // Para verificar a estrutura recebida
+      console.log('Reservas recebidas:', data); // Verifique a estrutura recebida
       if (Array.isArray(data) && data.length > 0) {
         setReservas(data);
       } else {
@@ -40,28 +40,31 @@ function HomeDocente() {
       console.error('Erro ao conectar ao servidor:', error);
     }
   };
+  
 
   useEffect(() => {
     fetchReservas();
   }, [navigate]);
 
-  const handleRetirarChave = async (reservas) => {
-    const idDocentes = reservas.id_docentes; // Ajuste baseado na estrutura real
-
-    if (!idDocentes) {
+  const handleRetirarChave = async (reserva) => {
+    console.log('Reserva:', reserva); // Verifique a estrutura
+  
+    const idDocente = reserva.docente_id || (reserva.docente && reserva.docente.id_docente); // Acesso condicional
+  
+    if (!idDocente) {
       console.error('ID do docente não encontrado na reserva.');
       return;
     }
-
+  
     try {
       const response = await fetch(`http://localhost:5000/api/reservas/retirar-chave`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ id_docentes: idDocentes }) // Envia o ID do docente
+        body: JSON.stringify({ id_docente: idDocente }) // Envia o ID do docente
       });
-
+  
       if (response.ok) {
         console.log('Chave retirada com sucesso!');
         fetchReservas(); // Recarrega reservas para exibir horário atualizado
@@ -73,27 +76,29 @@ function HomeDocente() {
       console.error('Erro ao conectar ao servidor:', error);
     }
   };
-
+  
+  
+  
   const handleDevolverChave = async (reserva) => {
-    const idDocente = reserva.docentes_id; // Ajuste baseado na estrutura real
-
+    const idDocente = reserva.docente.id_docente; // Acesse o ID corretamente aqui
+  
     if (!idDocente) {
       console.error('ID do docente não encontrado na reserva.');
       return;
     }
-
+  
     try {
       const response = await fetch(`http://localhost:5000/api/reservas/devolver-chave`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ id_docente: idDocente }) // Envia o ID do docente
+        body: JSON.stringify({ id_docente: idDocente })
       });
-
+  
       if (response.ok) {
         console.log('Chave devolvida com sucesso!');
-        fetchReservas(); // Recarrega reservas para exibir horário atualizado
+        fetchReservas();
       } else {
         console.error('Erro ao devolver chave:', response.statusText);
       }
@@ -101,6 +106,8 @@ function HomeDocente() {
       console.error('Erro ao conectar ao servidor:', error);
     }
   };
+  
+  
 
   return (
     <>
@@ -138,7 +145,7 @@ function HomeDocente() {
                 </div>
 
                 <div className="buttons-container">
-                  <button onClick={() => handleRetirarChave(reservas)}>Retirar chave</button>
+                  <button onClick={() => handleRetirarChave(reserva)}>Retirar chave</button>
                   <button 
                     onClick={() => handleDevolverChave(reserva)}
                     disabled={!reserva.horario_inicial} // Desabilita se o horário inicial não estiver definido

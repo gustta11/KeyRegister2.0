@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import './Top1.css';
 function Top1 (){
     return(
     <div className="top">

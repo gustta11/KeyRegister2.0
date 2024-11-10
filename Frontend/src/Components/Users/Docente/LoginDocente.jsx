@@ -1,5 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import Top1 from "../../Top/Top1";
+import Docente from '../../../../public/logind.png';
+import './LoginDocente.css';
+import { LiaKeySolid } from "react-icons/lia";
 import { useState } from "react";
 
 const LoginDocente = () => {
