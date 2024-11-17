@@ -73,6 +73,73 @@ const Docente = {
             if (err) return callback(err, null); // Retorna erro, se houver
             callback(null, results); // Retorna os resultados encontrados
         });
+    },
+       // Função para buscar todas reservas e aceita filtros
+       findAllReservas: (filters, callback) => {
+        let query = `
+            SELECT 
+                t.nome_turma AS turma_nome,
+                s.salas_nome AS sala_nome,
+                c.curso_nome AS curso_nome,
+                d.nome_docentes AS docente_nome,
+                disc.disciplinas_nome AS disciplina_nome,
+                r.horario_inicial,
+                r.horario_final,
+                r.data,
+                r.docentes_id
+            FROM 
+                reservas r
+            JOIN 
+                docentes d ON r.docentes_id = d.id_docentes
+            JOIN 
+                salas s ON r.salas_id = s.id_salas
+            JOIN 
+                cursos c ON r.cursos_idcursos = c.id_cursos
+            JOIN 
+                turma t ON r.turma_idturma = t.id_turma
+            JOIN 
+                disciplinas disc ON r.disciplinas_idDisciplinas = disc.id_disciplinas
+        `;
+        
+        const conditions = [];
+        const params = [];
+    
+        // Adiciona condições com base nos filtros fornecidos
+        if (filters.curso_nome) {
+            conditions.push('c.curso_nome = ?');
+            params.push(filters.curso_nome);
+        }
+        if (filters.data) {
+            conditions.push('r.data = ?');
+            params.push(filters.data);
+        }
+        if (filters.sala_nome) {
+            conditions.push('s.salas_nome = ?');
+            params.push(filters.sala_nome);
+        }
+        if (filters.horario_inicial && filters.horario_final) {
+            conditions.push('r.horario_inicial >= ? AND r.horario_final <= ?');
+            params.push(filters.horario_inicial, filters.horario_final);
+        }
+        if (filters.docente_nome) {
+            conditions.push('d.nome_docentes LIKE ?');
+            params.push(`%${filters.docente_nome}%`); // Permite busca parcial
+        }
+        if (filters.disciplina_nome) {
+            conditions.push('disc.disciplinas_nome LIKE ?');
+            params.push(`%${filters.disciplina_nome}%`); // Permite busca parcial
+        }
+    
+        // Concatena as condições à query
+        if (conditions.length > 0) {
+            query += ' WHERE ' + conditions.join(' AND ');
+        }
+    
+        // Executa a consulta com os parâmetros
+        db.query(query, params, (err, results) => {
+            if (err) return callback(err, null);
+            callback(null, results);
+        });
     }
 };
 

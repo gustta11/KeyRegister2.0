@@ -34,6 +34,31 @@ const getReservasByMatricula = (req, res) => {
     });
 };
 
+const getAllReservas = (req, res) => {
+    const filters = {
+        curso_nome: req.query.curso_nome,
+        data: req.query.data,
+        sala_nome: req.query.sala_nome,
+        horario_inicial: req.query.horario_inicial,
+        horario_final: req.query.horario_final,
+        docente_nome: req.query.docente_nome,
+        disciplina_nome: req.query.disciplina_nome
+    };
+
+    Docente.findAllReservas(filters, (err, reservas) => {
+        if (err) {
+            console.error('Erro ao buscar reservas:', err);
+            return res.status(500).json({ message: 'Erro ao buscar reservas' });
+        }
+
+        if (reservas.length === 0) {
+            return res.status(404).json({ message: 'Nenhuma reserva encontrada com os filtros fornecidos' });
+        }
+
+        return res.json(reservas);
+    });
+};
+
 // Função para atualizar o horário inicial e data ao retirar a chave
 const updateReservaHorarioData = (req, res) => {
     const { id_docente } = req.body;
@@ -77,7 +102,8 @@ const updateReservaHorarioFinal = (req, res) => {
     });
 };
 
-export default { getReservasByMatricula, updateReservaHorarioData, updateReservaHorarioFinal };
+
+export default { getReservasByMatricula, updateReservaHorarioData, updateReservaHorarioFinal, getAllReservas };
 
 
 

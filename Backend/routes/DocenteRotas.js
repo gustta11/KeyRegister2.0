@@ -3,6 +3,9 @@ import DocenteController from '../controller/DocenteController.js';
 
 const router = express.Router();
 
+// Rota para obter todas as reservas
+router.get('/reservas', DocenteController.getAllReservas);
+
 // Rota para obter reservas pelo número de matrícula
 router.post('/reservas/matricula', DocenteController.getReservasByMatricula);
 
