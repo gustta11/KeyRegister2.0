@@ -1,7 +1,14 @@
 import express from 'express';
 import DocenteController from '../controller/DocenteController.js';
+import multer from 'multer';
 
 const router = express.Router();
+
+// Configuração do multer
+const upload = multer({ dest: 'uploads/' });
+
+// Rota para importar reservas
+router.post('/importar-reservas', upload.single('file'), DocenteController.importarReservas);
 
 // Rota para obter todas as reservas
 router.get('/reservas', DocenteController.getAllReservas);

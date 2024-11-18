@@ -140,7 +140,79 @@ const Docente = {
             if (err) return callback(err, null);
             callback(null, results);
         });
-    }
+    },
+
+      
+      // Função para buscar o ID de uma entidade (docente, sala, curso, disciplina) pelo nome.
+   
+     
+      getIdByName: (tableName, columnName, value) => {
+        return new Promise((resolve, reject) => {
+            const query = `SELECT id_${tableName} FROM ${tableName} WHERE ${columnName} = ?`;
+            db.query(query, [value], (err, results) => {
+                if (err) return reject(err);
+                if (results.length === 0) return reject(`Nenhum ID encontrado para ${value} na tabela ${tableName}`);
+                resolve(results[0][`id_${tableName}`]);
+            });
+        });
+    },
+
+    
+      // Função para salvar múltiplas reservas no banco de dados.
+  
+    salvarReservas: (reservas, callback) => {
+        const query = `
+            INSERT INTO reservas (docentes_id, salas_id, cursos_idcursos, disciplinas_idDisciplinas, horario_inicial, horario_final, data)
+            VALUES ?`;
+        const values = reservas.map((reserva) => [
+            reserva.docentes_id,
+            reserva.salas_id,
+            reserva.cursos_idcursos,
+            reserva.disciplinas_idDisciplinas,
+            reserva.horario_inicial,
+            reserva.horario_final,
+            reserva.data,
+        ]);
+        db.query(query, [values], (err, result) => {
+            if (err) return callback(err, null);
+            callback(null, result);
+        });
+    },
+
+    
+     // Função para processar os dados do arquivo Excel e inserir as reservas no banco de dados.
+     
+    processarArquivoExcel: async (data) => {
+        const reservasComIds = await Promise.all(
+            data.map(async (reserva) => {
+                const docenteId = await Docente.getIdByName("docentes", "nome_docentes", reserva.nome_docente);
+                const salaId = await Docente.getIdByName("salas", "salas_nome", reserva.nome_sala);
+                const cursoId = await Docente.getIdByName("cursos", "curso_nome", reserva.nome_curso);
+                const disciplinaId = await Docente.getIdByName(
+                    "disciplinas",
+                    "disciplinas_nome",
+                    reserva.nome_disciplina
+                );
+
+                return {
+                    docentes_id: docenteId,
+                    salas_id: salaId,
+                    cursos_idcursos: cursoId,
+                    disciplinas_idDisciplinas: disciplinaId,
+                    horario_inicial: reserva.horario_inicial,
+                    horario_final: reserva.horario_final,
+                    data: reserva.data,
+                };
+            })
+        );
+
+        return new Promise((resolve, reject) => {
+            Docente.salvarReservas(reservasComIds, (err, result) => {
+                if (err) return reject(err);
+                resolve(result);
+            });
+        });
+    },
 };
 
 // Exporta o modelo Docente para uso em outras partes do aplicativo

@@ -1,4 +1,5 @@
 import Docente from '../model/DocenteModel.js';
+import xlsx from 'xlsx'; // Para processar arquivos Excel
 
 // Função para buscar reservas pelo número de matrícula do docente
 const getReservasByMatricula = (req, res) => {
@@ -102,8 +103,56 @@ const updateReservaHorarioFinal = (req, res) => {
     });
 };
 
+const importarReservas = async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ message: 'Nenhum arquivo enviado' });
+        }
 
-export default { getReservasByMatricula, updateReservaHorarioData, updateReservaHorarioFinal, getAllReservas };
+        // Lê o arquivo Excel
+        const workbook = xlsx.readFile(req.file.path);
+        const sheetName = workbook.SheetNames[0]; // Considera a primeira aba
+        const data = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
+
+        const reservasComIds = await Promise.all(
+            data.map(async (reserva) => {
+                const docenteId = await Docente.getIdByName('docentes', 'nome_docentes', reserva.nome_docente);
+                const salaId = await Docente.getIdByName('salas', 'salas_nome', reserva.nome_sala);
+                const cursoId = await Docente.getIdByName('cursos', 'curso_nome', reserva.nome_curso);
+                const disciplinaId = await Docente.getIdByName('disciplinas', 'disciplinas_nome', reserva.nome_disciplina);
+
+                if (!docenteId || !salaId || !cursoId || !disciplinaId) {
+                    throw new Error(`Erro ao buscar IDs para a reserva: ${JSON.stringify(reserva)}`);
+                }
+
+                return {
+                    docentes_id: docenteId,
+                    salas_id: salaId,
+                    cursos_idcursos: cursoId,
+                    disciplinas_idDisciplinas: disciplinaId,
+                    horario_inicial: reserva.horario_inicial,
+                    horario_final: reserva.horario_final,
+                    data: reserva.data,
+                };
+            })
+        );
+
+        // Insere as reservas no banco
+        Docente.salvarReservas(reservasComIds, (err, result) => {
+            if (err) {
+                console.error('Erro ao salvar reservas:', err);
+                return res.status(500).json({ message: 'Erro ao salvar reservas no banco' });
+            }
+            res.status(200).json({ message: 'Reservas importadas com sucesso!' });
+        });
+    } catch (error) {
+        console.error('Erro ao processar arquivo:', error);
+        res.status(500).json({ message: 'Erro ao processar arquivo Excel' });
+    }
+};
+
+
+export default { getReservasByMatricula, updateReservaHorarioData, updateReservaHorarioFinal, getAllReservas, importarReservas };
 
 
 
