@@ -66,9 +66,9 @@ const LoginDocente = () => {
             {error && <p className="error-message">{error}</p>}
           </form>
         </div>
-        <Rodape/>
+        
       </div>
-      
+      <Rodape/>
     </>
   );
 };

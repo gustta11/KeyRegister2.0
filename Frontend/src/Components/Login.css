@@ -156,8 +156,8 @@ body {
   }
 
   .buttons-users1 button {
-    font-size: 1.8rem; /* Aumenta o tamanho da fonte dos botões */
-    padding: 1.1rem 2rem; /* Aumenta o padding para os botões */
+    font-size: 1.8rem;
+    padding: 1.1rem 2rem; 
   }
 }
 

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Top1 from "../../Top/Top1";
 import './HomeDocente.css';
+import Rodape from "../../Rodapé/Rodape";
+
 
 function HomeDocente() {
   const [reservas, setReservas] = useState([]);
@@ -162,6 +164,7 @@ function HomeDocente() {
           <p>Não há reservas encontradas para este docente.</p>
         )}
       </div>
+      <Rodape/>
     </>
   );
 }
