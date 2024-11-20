@@ -104,3 +104,80 @@ body {
     padding: 0.8rem 1rem;
   }
 }
+
+/* Responsividade para telas maiores (1024px e acima) */
+@media (min-width: 1024px) {
+  .icon-buttons1 {
+    width: 70%; /* Aumenta a largura para 60% da tela em dispositivos maiores */
+    padding: 4rem; /* Aumenta o padding para dar mais espaçamento */
+    margin-top: 5.5rem; 
+  }
+
+  .icon-buttons1 .photo {
+    width: 400px; /* Aumenta a largura da imagem */
+    max-width: 350px; /* Ajusta o máximo da imagem */
+    margin-right: 10rem; /* Ajusta a margem direita para dar mais espaço */
+  }
+
+  .buttons-users1 button {
+    font-size: 2.2rem; /* Aumenta o tamanho da fonte dos botões */
+    padding: 1.2rem 2rem; /* Aumenta o padding para os botões */
+  }
+}
+@media (min-width: 1014px) {
+  .icon-buttons1 {
+    width: 70%; /* Aumenta a largura para 60% da tela em dispositivos maiores */
+    padding: 4rem; /* Aumenta o padding para dar mais espaçamento */
+    margin-top: 5.5rem; 
+  }
+
+  .icon-buttons1 .photo {
+    width: 300px; /* Aumenta a largura da imagem */
+    max-width: 350px; /* Ajusta o máximo da imagem */
+    margin-right: 10rem; /* Ajusta a margem direita para dar mais espaço */
+  }
+
+  .buttons-users1 button {
+    font-size: 1.3rem; /* Aumenta o tamanho da fonte dos botões */
+    padding: 1.1rem 2rem; /* Aumenta o padding para os botões */
+  }
+}
+@media (min-width: 1440px) {
+  .icon-buttons1 {
+    width: 70%; /* Aumenta a largura para 60% da tela em dispositivos maiores */
+    padding: 4rem; /* Aumenta o padding para dar mais espaçamento */
+    margin-top: 10.4rem; 
+  }
+
+  .icon-buttons1 .photo {
+    width: 400px; /* Aumenta a largura da imagem */
+    max-width: 350px; /* Ajusta o máximo da imagem */
+    margin-right: 10rem; /* Ajusta a margem direita para dar mais espaço */
+  }
+
+  .buttons-users1 button {
+    font-size: 1.8rem; /* Aumenta o tamanho da fonte dos botões */
+    padding: 1.1rem 2rem; /* Aumenta o padding para os botões */
+  }
+}
+
+
+@media (min-width: 2560px) {
+  .icon-buttons1 {
+    width: 70%; /* Aumenta a largura para 60% da tela em dispositivos maiores */
+    padding: 4rem; /* Aumenta o padding para dar mais espaçamento */
+    margin-top: 10.4rem; 
+  }
+
+  .icon-buttons1 .photo {
+    width: 400px; /* Aumenta a largura da imagem */
+    max-width: 350px; /* Ajusta o máximo da imagem */
+    margin-right: 10rem; /* Ajusta a margem direita para dar mais espaço */
+  }
+
+  .buttons-users1 button {
+    font-size: 1.8rem; /* Aumenta o tamanho da fonte dos botões */
+    padding: 1.1rem 2rem; /* Aumenta o padding para os botões */
+  }
+}
+

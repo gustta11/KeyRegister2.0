@@ -1,51 +1,239 @@
+/* Certifique-se de que o body ocupa toda a altura da tela */
+body {
+    display: flex;
+    flex-direction: column;
+    max-height: 100vh;
+    /* Garante que o conteúdo ocupe toda a altura da tela */
+    margin: 0;
+    /* Remove qualquer margem padrão do body */
+}
+
 /* Rodapé */
-.footer { 
+.footer {
     background-color: #001125;
     color: #fff;
     text-align: center;
     padding: 1rem;
+    margin-top: 8.8%;
     width: 100%;
-    margin-top: 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-top: 4px solid #fff; /* Linha branca no topo do rodapé */
-  }
-  
-  .footer p {
+    border-top: 4px solid #fff;
+
+}
+
+/* Estilos para os parágrafos */
+.footer p {
     font-size: 1rem;
     margin: 0.5rem 0;
     font-weight: 500;
-  }
-  
-  .footer .icons {
+}
+
+.footer .icons {
     display: flex;
     gap: 1rem;
     margin-top: 1.5rem;
-  }
-  
-  .footer .icons a {
+}
+
+.footer .icons a {
     color: #fff;
     font-size: 2rem;
     transition: color 0.3s ease;
-  }
-  
-  .footer .icons a:hover {
-    color: #7DD1F5; /* Cor de destaque ao passar o mouse */
-  }
-  
-  .footer a {
+}
+
+.footer .icons a:hover {
+    color: #7DD1F5;
+    /* Cor de destaque ao passar o mouse */
+}
+
+.footer a {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
-  }
-  
-  .footer a:hover {
+}
+
+.footer a:hover {
     text-decoration: underline;
-  }
-  
-  .footer .socials {
+}
+
+.footer .socials {
     margin-top: 1rem;
-  }
-  
+}
+
+@media (min-width: 2560px) {
+    .footer {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 2rem 4rem;
+        margin-top: 8.4%;
+        text-align: left;
+       
+    }
+
+    .footer p {
+        font-size: 1.2rem;
+        /* Aumenta o tamanho da fonte */
+    }
+
+    .footer .icons {
+        margin-top: 0;
+        /* Remove a margem superior */
+        gap: 2rem;
+        /* Aumenta o espaço entre os ícones */
+    }
+
+    .footer .icons a {
+        font-size: 2.5rem;
+        /* Aumenta o tamanho dos ícones */
+    }
+
+    .footer .socials {
+        margin-top: 0;
+        /* Remove a margem superior */
+    }
+}
+
+@media (min-width: 1330px) {
+    .footer {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 2rem 4rem;
+        margin-top: 20rem;
+        text-align: left;
+       
+    }
+
+    .footer p {
+        font-size: 1.2rem;
+        /* Aumenta o tamanho da fonte */
+    }
+
+    .footer .icons {
+        margin-top: 0;
+        /* Remove a margem superior */
+        gap: 2rem;
+        /* Aumenta o espaço entre os ícones */
+    }
+
+    .footer .icons a {
+        font-size: 2.5rem;
+        /* Aumenta o tamanho dos ícones */
+    }
+
+    .footer .socials {
+        margin-top: 0;
+        /* Remove a margem superior */
+    }
+}
+
+
+/* Estilos para telas maiores */
+@media (min-width: 1024px) {
+    .footer {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 2rem 4rem;
+
+        margin-top: 8.4%;
+        text-align: left;
+        /* Alinha o texto à esquerda */
+    }
+
+    .footer p {
+        font-size: 1.2rem;
+        /* Aumenta o tamanho da fonte */
+    }
+
+    .footer .icons {
+        margin-top: 0;
+        /* Remove a margem superior */
+        gap: 2rem;
+        /* Aumenta o espaço entre os ícones */
+    }
+
+    .footer .icons a {
+        font-size: 2.5rem;
+        /* Aumenta o tamanho dos ícones */
+    }
+
+    .footer .socials {
+        margin-top: 0;
+        /* Remove a margem superior */
+    }
+}
+
+/* Estilos para telas menores (tablets) */
+@media (max-width: 768px) {
+    .footer {
+        flex-direction: column;
+        /* Organiza os elementos em coluna */
+        padding: 1.5rem;
+        /* Ajusta o espaçamento interno */
+        margin-bottom: 0;
+        /* Remove a margem inferior */
+        text-align: center;
+        /* Centraliza todos os textos */
+    }
+
+    .footer p {
+        font-size: 0.9rem;
+        /* Reduz o tamanho da fonte */
+    }
+
+    .footer .icons {
+        gap: 0.75rem;
+        /* Reduz o espaçamento entre os ícones */
+    }
+
+    .footer .icons a {
+        font-size: 1.5rem;
+        /* Reduz o tamanho dos ícones */
+    }
+}
+
+/* Estilos para telas muito pequenas (480px) */
+@media (max-width: 480px) {
+    .footer {
+        padding: 1rem;
+        /* Reduz o espaçamento interno */
+    }
+
+    .footer p {
+        font-size: 0.8rem;
+        /* Diminui o tamanho do texto */
+    }
+
+    .footer .icons {
+        gap: 0.5rem;
+        /* Diminui o espaço entre os ícones */
+    }
+
+    .footer .icons a {
+        font-size: 1.2rem;
+        /* Diminui o tamanho dos ícones */
+    }
+}
+
+@media (max-width: 320px) {
+    .footer {
+        padding: 0.5rem;
+        /* Ajusta o espaçamento interno para telas pequenas */
+    }
+
+    .footer p {
+        font-size: 0.7rem;
+        /* Texto menor para caber na tela */
+    }
+
+    .footer .icons {
+        gap: 0.3rem;
+        /* Espaço mínimo entre os ícones */
+    }
+
+    .footer .icons a {
+        font-size: 1rem;
+        /* Ícones bem pequenos */
+    }
+}
