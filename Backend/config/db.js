@@ -16,6 +16,4 @@ db.connect((err) => {
 });
 
 
-
 export default db;
-
