@@ -16,9 +16,46 @@
   color: #333;
 }
 
+.search-form {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-form input {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-button-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-button-container button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-button-container button:hover {
+  background-color: #45a049;
+}
+
 .table-container {
   margin-top: 20px;
-  overflow-x: auto; 
+  overflow-x: auto;
 }
 
 table {
@@ -52,4 +89,31 @@ tbody tr:hover {
   font-size: 18px;
   color: #d9534f;
   font-weight: bold;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.btn-voltar {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-voltar:hover {
+  background-color: #0056b3;
+}
+
+.table-container h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  text-align: center;
 }
