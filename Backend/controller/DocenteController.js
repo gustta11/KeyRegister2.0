@@ -45,6 +45,7 @@ const getAllReservas = (req, res) => {
         disciplina_nome: req.query.disciplina_nome
     };
 
+    // Chama a função para buscar as reservas com os filtros
     Docente.findAllReservas(filters, (err, reservas) => {
         if (err) {
             console.error('Erro ao buscar reservas:', err);

@@ -1,67 +1,68 @@
-import { useNavigate } from "react-router-dom";
-import Top1 from "../../Top/Top1";
-import './HomeAdmin.css';
-import { FaArrowLeft } from "react-icons/fa";
 
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './HomeAdmin.css'
 
-function HomeAdmin () {
-  const navigate = useNavigate();
-  const handleBack = () => {
-    navigate(-1); // Volta para a página anterior
-  };
+const Reservas = () => {
+    const [reservas, setReservas] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-  return (
-    <>
-      <Top1 />
-      <button className="back-button" onClick={handleBack}>
-          <FaArrowLeft /> Voltar
-        </button>
-      <div className="home-admin-container">
-        <div className="sidebar">
-          <ul>
-            <li onClick={() => navigate("/rota1")}>Página 1</li>
-            <li onClick={() => navigate("/rota2")}>Página 2</li>
-            <li onClick={() => navigate("/rota3")}>Página 3</li>
-          </ul>
+    useEffect(() => {
+        // Fazendo a requisição para a API
+        axios.get("http://localhost:5000/api/reservas")
+            .then(response => {
+                setReservas(response.data);
+                setLoading(false);
+            })
+            .catch(err => {
+                setError("Erro ao carregar as reservas");
+                setLoading(false);
+            });
+    }, []);
+
+    if (loading) return <p className="loading">Carregando...</p>;
+    if (error) return <p className="error">{error}</p>;
+
+    return (
+        <div className="reservas-container">
+            {/* Título da página */}
+            <div className="header">
+                <h2>Reservas</h2>
+            </div>
+
+            {/* Tabela de Reservas */}
+            <div className="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Docente</th>
+                            <th>Turma</th>
+                            <th>Sala</th>
+                            <th>Curso</th>
+                            <th>Disciplina</th>
+                            <th>Horário de Retirada</th>
+                            <th>Horário de Devolução</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {reservas.map((reserva, index) => (
+                            <tr key={index}>
+                                <td>{reserva.docente_nome}</td>
+                                <td>{reserva.turma_nome}</td>
+                                <td>{reserva.sala_nome}</td>
+                                <td>{reserva.curso_nome}</td>
+                                <td>{reserva.disciplina_nome}</td>
+                                <td>{reserva.horario_inicial}</td>
+                                <td>{reserva.horario_final}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
         </div>
-        
-        <div className="main-content">
-          <div className="centered-box">
-            <table className="info-table">
-              <thead>
-                <tr>
-                  <th>Docente</th>
-                  <th>Turno</th>
-                  <th>N Sala</th>
-                  <th>Nome Sala</th>
-                  <th>Turma</th>
-                  <th>Bloco</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>João Silva</td>
-                  <td>Manhã</td>
-                  <td>101</td>
-                  <td>Matemática</td>
-                  <td>1A</td>
-                  <td>Bloco A</td>
-                </tr>
-                <tr>
-                  <td>Ana Souza</td>
-                  <td>Tarde</td>
-                  <td>102</td>
-                  <td>Física</td>
-                  <td>2B</td>
-                  <td>Bloco B</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-}
+    );
+};
 
-export default HomeAdmin;
+export default Reservas;
