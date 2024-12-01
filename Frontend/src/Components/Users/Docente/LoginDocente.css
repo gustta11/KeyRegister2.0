@@ -11,8 +11,6 @@ body {
     margin: 0;
 }
 
-
-
 /* Container principal do login */
 .login-container {
     display: flex;
@@ -100,17 +98,17 @@ button:hover {
 
 button:disabled {
     background-color: #ccc;
-    cursor: not-allowed;
+    cursor:none;
 }
 
 /* Mensagem de erro */
 .error-message {
     color: red;
-    font-size: 1rem;
+    font-size: 2rem;
     margin-top: 1rem;
 }
 
-@media (max-width: 769px) {
+@media (max-width: 768px) {
     .login-container {
         padding: 2rem;
     }

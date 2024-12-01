@@ -1,10 +1,48 @@
-
 .reservas-lista h2 {
     font-size: 32px;
     margin-bottom: 3%;
     text-align: center;
     margin-top: 5%;
 }
+
+.aviso-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .aviso-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .aviso-container p {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .aviso-container button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .aviso-container button:hover {
+    background-color: #0056b3;
+  }
 
 .topo-docente {
     display: flex;

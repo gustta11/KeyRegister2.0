@@ -90,12 +90,18 @@ function HomeDocente() {
 
   const handleDevolverChave = async (reserva) => {
     const idDocente = reserva.docentes_id;
-
+  
+    if (!retiradaChave[reserva.id]) {
+      // Notificação quando o botão está desativado
+      setAviso({ ativo: true, mensagem: 'Você precisa retirar a chave antes de devolvê-la!' });
+      return;
+    }
+  
     if (!idDocente) {
       console.error('ID do docente não encontrado na reserva.');
       return;
     }
-
+  
     try {
       const response = await fetch(`http://localhost:5000/api/reservas/devolver-chave`, {
         method: 'POST',
@@ -104,7 +110,7 @@ function HomeDocente() {
         },
         body: JSON.stringify({ id_docente: idDocente })
       });
-
+  
       if (response.ok) {
         console.log('Chave devolvida com sucesso!');
         setRetiradaChave((prevState) => ({
@@ -112,6 +118,7 @@ function HomeDocente() {
           [reserva.id]: false, // Marca a reserva como tendo a chave devolvida
         }));
         fetchReservas();
+        setAviso({ ativo: true, mensagem: 'Chave devolvida com sucesso!' }); // Notificação de sucesso
       } else {
         console.error('Erro ao devolver chave:', response.statusText);
       }
@@ -119,6 +126,7 @@ function HomeDocente() {
       console.error('Erro ao conectar ao servidor:', error);
     }
   };
+  
 
   const fecharAviso = () => {
     setAviso({ ativo: false, mensagem: '' });
@@ -130,7 +138,7 @@ function HomeDocente() {
       <button className="back-button" onClick={handleBack}>
         <FaArrowLeft /> Voltar
       </button>
-      
+
       {aviso.ativo && (
         <div className="aviso-overlay">
           <div className="aviso-container">
@@ -139,6 +147,16 @@ function HomeDocente() {
           </div>
         </div>
       )}
+
+      {aviso.ativo && (
+        <div className="aviso-overlay">
+          <div className="aviso-container">
+            <p>{aviso.mensagem}</p>
+            <button onClick={fecharAviso}>OK</button>
+          </div>
+        </div>
+      )}
+
 
       <div className="reservas-lista">
         {reservas.length > 0 ? (
@@ -174,7 +192,7 @@ function HomeDocente() {
 
                 <div className="buttons-container">
                   <button onClick={() => handleRetirarChave(reserva)}>Retirar chave</button>
-                  <button 
+                  <button
                     onClick={() => handleDevolverChave(reserva)}
                     disabled={!retiradaChave[reserva.id]} // Desativa até que "Retirar chave" seja clicado
                   >
