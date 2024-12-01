@@ -1,13 +1,21 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Top1 from "../../Top/Top1";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FaArrowLeft } from "react-icons/fa";
+import { faLockOpen } from '@fortawesome/free-solid-svg-icons';
 import './HomeDocente.css';
 import Rodape from "../../Rodapé/Rodape";
 
-
 function HomeDocente() {
   const [reservas, setReservas] = useState([]);
+  const [retiradaChave, setRetiradaChave] = useState({});
+  const [aviso, setAviso] = useState({ ativo: false, mensagem: '' });
   const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1); // Volta para a página anterior
+  };
 
   const fetchReservas = async () => {
     const matricula = localStorage.getItem('matricula_docente');
@@ -16,7 +24,7 @@ function HomeDocente() {
       navigate('/login');
       return;
     }
-  
+
     try {
       const response = await fetch(`http://localhost:5000/api/reservas/matricula`, {
         method: 'POST',
@@ -25,14 +33,13 @@ function HomeDocente() {
         },
         body: JSON.stringify({ matricula_docentes: matricula })
       });
-  
+
       if (!response.ok) {
         console.error('Erro ao buscar reservas:', response.statusText);
         return;
       }
-  
+
       const data = await response.json();
-      console.log('Reservas recebidas:', data); // Verifique a estrutura recebida
       if (Array.isArray(data) && data.length > 0) {
         setReservas(data);
       } else {
@@ -42,35 +49,36 @@ function HomeDocente() {
       console.error('Erro ao conectar ao servidor:', error);
     }
   };
-  
 
   useEffect(() => {
     fetchReservas();
-  }, [navigate]);
+  }, []);
 
-  const handleRetirarChave = async (reservas) => {
-    console.log('Reserva:', reservas); // Verifique a estrutura
-  
-    const idDocente = reservas.docentes_id
-    console.log(idDocente)
-  
+  const handleRetirarChave = async (reserva) => {
+    const idDocente = reserva.docentes_id;
+
     if (!idDocente) {
       console.error('ID do docente não encontrado na reserva.');
       return;
     }
-  
+
     try {
       const response = await fetch(`http://localhost:5000/api/reservas/retirar-chave`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ id_docente: idDocente }) // Envia o ID do docente
+        body: JSON.stringify({ id_docente: idDocente })
       });
-  
+
       if (response.ok) {
         console.log('Chave retirada com sucesso!');
-        fetchReservas(); // Recarrega reservas para exibir horário atualizado
+        setRetiradaChave((prevState) => ({
+          ...prevState,
+          [reserva.id]: true, // Marca a reserva como tendo a chave retirada
+        }));
+        fetchReservas();
+        setAviso({ ativo: true, mensagem: 'Chave retirada com sucesso!' });
       } else {
         const errorData = await response.json();
         console.error('Erro ao retirar chave:', errorData.message);
@@ -79,18 +87,15 @@ function HomeDocente() {
       console.error('Erro ao conectar ao servidor:', error);
     }
   };
-  
-  
-  
-  const handleDevolverChave = async (reservas) => {
-    const idDocente = reservas.docentes_id // Acesse o ID corretamente aqui
-    console.log(idDocente)
-  
+
+  const handleDevolverChave = async (reserva) => {
+    const idDocente = reserva.docentes_id;
+
     if (!idDocente) {
       console.error('ID do docente não encontrado na reserva.');
       return;
     }
-  
+
     try {
       const response = await fetch(`http://localhost:5000/api/reservas/devolver-chave`, {
         method: 'POST',
@@ -99,9 +104,13 @@ function HomeDocente() {
         },
         body: JSON.stringify({ id_docente: idDocente })
       });
-  
+
       if (response.ok) {
         console.log('Chave devolvida com sucesso!');
+        setRetiradaChave((prevState) => ({
+          ...prevState,
+          [reserva.id]: false, // Marca a reserva como tendo a chave devolvida
+        }));
         fetchReservas();
       } else {
         console.error('Erro ao devolver chave:', response.statusText);
@@ -110,17 +119,32 @@ function HomeDocente() {
       console.error('Erro ao conectar ao servidor:', error);
     }
   };
-  
-  
+
+  const fecharAviso = () => {
+    setAviso({ ativo: false, mensagem: '' });
+  };
 
   return (
     <>
       <Top1 />
+      <button className="back-button" onClick={handleBack}>
+        <FaArrowLeft /> Voltar
+      </button>
+      
+      {aviso.ativo && (
+        <div className="aviso-overlay">
+          <div className="aviso-container">
+            <p>{aviso.mensagem}</p>
+            <button onClick={fecharAviso}>OK</button>
+          </div>
+        </div>
+      )}
+
       <div className="reservas-lista">
         {reservas.length > 0 ? (
           reservas.map((reserva) => (
             <div key={reserva.id}>
-              <h2>Seja bem-vindo {reserva.docente_nome}</h2>
+              <h2>Bem-vindo {reserva.docente_nome} <FontAwesomeIcon icon={faLockOpen} style={{ marginLeft: '20px', color: 'black' }} /></h2>
               <div className="reserva-item">
                 <h3>Reserva do Docente</h3>
                 <div className="reservas-columns">
@@ -143,7 +167,7 @@ function HomeDocente() {
                       <p className="info-horario">Horário Inicial: {reserva.horario_inicial}</p>
                     </div>
                     <div className="info-balao">
-                      <p className="info-data">Data: {reserva.data}</p>
+                      <p className="info-data">Data: {new Date(reserva.data).toLocaleDateString('pt-BR')}</p>
                     </div>
                   </div>
                 </div>
@@ -152,7 +176,7 @@ function HomeDocente() {
                   <button onClick={() => handleRetirarChave(reserva)}>Retirar chave</button>
                   <button 
                     onClick={() => handleDevolverChave(reserva)}
-                    disabled={!reserva.horario_inicial} // Desabilita se o horário inicial não estiver definido
+                    disabled={!retiradaChave[reserva.id]} // Desativa até que "Retirar chave" seja clicado
                   >
                     Devolver chave
                   </button>
@@ -164,7 +188,7 @@ function HomeDocente() {
           <p>Não há reservas encontradas para este docente.</p>
         )}
       </div>
-      <Rodape/>
+      <Rodape />
     </>
   );
 }

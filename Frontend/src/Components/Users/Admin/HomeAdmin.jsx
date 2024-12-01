@@ -1,13 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import Top1 from "../../Top/Top1";
 import './HomeAdmin.css';
+import { FaArrowLeft } from "react-icons/fa";
+
 
 function HomeAdmin () {
   const navigate = useNavigate();
+  const handleBack = () => {
+    navigate(-1); // Volta para a página anterior
+  };
 
   return (
     <>
       <Top1 />
+      <button className="back-button" onClick={handleBack}>
+          <FaArrowLeft /> Voltar
+        </button>
       <div className="home-admin-container">
         <div className="sidebar">
           <ul>

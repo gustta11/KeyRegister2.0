@@ -3,6 +3,7 @@ import Top1 from "../../Top/Top1";
 import Docente from '../../../../public/logind.png';
 import './LoginDocente.css';
 import { LiaKeySolid } from "react-icons/lia";
+import { FaArrowLeft } from "react-icons/fa";
 import { useState } from "react";
 import Rodape from '../../Rodapé/Rodape';
 
@@ -11,6 +12,10 @@ const LoginDocente = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1); // Volta para a página anterior
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -48,6 +53,9 @@ const LoginDocente = () => {
   return (
     <>
       <Top1 />
+      <button className="back-button" onClick={handleBack}>
+          <FaArrowLeft /> Voltar
+        </button>
       <div className="login-container">
         <h2>Login Docente</h2>
         <div className='icon-buttons'>
@@ -66,9 +74,8 @@ const LoginDocente = () => {
             {error && <p className="error-message">{error}</p>}
           </form>
         </div>
-        
       </div>
-      <Rodape/>
+      <Rodape />
     </>
   );
 };

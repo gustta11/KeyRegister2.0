@@ -4,11 +4,17 @@ import Docente from '../../../../public/logind.png';
 import { PiLockKeyDuotone } from "react-icons/pi";
 import { LiaKeySolid } from "react-icons/lia";
 import { useState } from "react";
+import { FaArrowLeft } from "react-icons/fa";
+
 
 const LoginAdmin = () => {
   const [usuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');
   const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1); // Volta para a página anterior
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -22,6 +28,9 @@ const LoginAdmin = () => {
   return (
     <>
       <Top1 />
+      <button className="back-button" onClick={handleBack}>
+          <FaArrowLeft /> Voltar
+        </button>
       <div className="login-container">
         <h2>Login Admin</h2>
         <div className='icon-buttons'>
