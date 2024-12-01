@@ -11,14 +11,11 @@
     "test": "jest"
   },
   "dependencies": {
-<<<<<<< HEAD
+
     "@fortawesome/free-solid-svg-icons": "^6.7.1",
     "@fortawesome/react-fontawesome": "^0.2.2",
-    "axios": "^1.7.7",
-=======
     "axios": "^1.7.8",
->>>>>>> bd40519ca34ee41e2168d2f5d4e4d9ae252c3f0b
-    "bcryptjs": "^2.4.3",
+   "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
