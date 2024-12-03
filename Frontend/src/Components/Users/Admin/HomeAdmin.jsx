@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './HomeAdmin.css';
+import Top1 from '../../Top/Top1';
+import { FaArrowLeft } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
+
 
 const Reservas = () => {
+  const navigate = useNavigate();
   const [reservas, setReservas] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -15,6 +20,11 @@ const Reservas = () => {
     horario_inicial: '',
     horario_final: ''
   });
+
+  const handleBack = () => {
+    navigate(-1); // Volta para a página anterior
+  };
+
 
   // Carregar as reservas automaticamente na inicialização
   useEffect(() => {
@@ -56,7 +66,12 @@ const Reservas = () => {
   if (error) return <p className="error">{error}</p>;
 
   return (
+    <>
+    <Top1/>
     <div className="reservas-container">
+    <button className="back-button" onClick={handleBack}>
+          <FaArrowLeft /> Voltar
+        </button>
       <div className="header">
         <h2>Reservas</h2>
       </div>
@@ -119,6 +134,7 @@ const Reservas = () => {
         </table>
       </div>
     </div>
+    </>
   );
 };
 
