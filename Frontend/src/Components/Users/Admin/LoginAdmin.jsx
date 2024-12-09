@@ -5,6 +5,7 @@ import { PiLockKeyDuotone } from "react-icons/pi";
 import { LiaKeySolid } from "react-icons/lia";
 import { useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
+import Rodape from '../../Rodapé/Rodape';
 
 
 const LoginAdmin = () => {
@@ -56,6 +57,7 @@ const LoginAdmin = () => {
           </form>
         </div>
       </div>
+      <Rodape />
     </>
   );
 };

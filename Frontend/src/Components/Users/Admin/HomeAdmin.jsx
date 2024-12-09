@@ -4,6 +4,7 @@ import './HomeAdmin.css';
 import Top1 from '../../Top/Top1';
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import Rodape from '../../Rodapé/Rodape';
 
 const Reservas = () => {
   const navigate = useNavigate();
@@ -24,7 +25,11 @@ const Reservas = () => {
     navigate(-1); // Volta para a página anterior
   };
 
-  // Carregar as reservas automaticamente na inicialização
+  const handleImport = () => {
+    alert("Função de importação ainda não implementada.");
+    // Adicione aqui a lógica para importar os dados (exemplo: upload de arquivo)
+  };
+
   useEffect(() => {
     fetchReservas();
   }, []);
@@ -65,6 +70,9 @@ const Reservas = () => {
         </button>
         <div className="header">
           <h2>Reservas</h2>
+          <button className="import-button" onClick={handleImport}>
+            Importar
+          </button>
         </div>
 
         {/* Formulário de pesquisa */}
@@ -131,6 +139,7 @@ const Reservas = () => {
           </table>
         </div>
       </div>
+      <Rodape />
     </>
   );
 };
