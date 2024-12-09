@@ -106,10 +106,10 @@ const Reservas = () => {
           <table>
             <thead>
               <tr>
-                <th>Docente</th>
-                <th>Turma</th>
                 <th>Sala</th>
                 <th>Curso</th>
+                <th>Turma</th>
+                <th>Professor</th>
                 <th>Disciplina</th>
                 <th>Horário de Retirada</th>
                 <th>Horário de Devolução</th>
@@ -119,10 +119,10 @@ const Reservas = () => {
               {reservas.length > 0 ? (
                 reservas.map((reserva, index) => (
                   <tr key={index}>
-                    <td>{reserva.docente_nome}</td>
-                    <td>{reserva.turma_nome}</td>
                     <td>{reserva.sala_nome}</td>
                     <td>{reserva.curso_nome}</td>
+                    <td>{reserva.turma_nome}</td>
+                    <td>{reserva.docente_nome}</td>
                     <td>{reserva.disciplina_nome}</td>
                     <td>{reserva.horario_inicial}</td>
                     <td>{reserva.horario_final}</td>
