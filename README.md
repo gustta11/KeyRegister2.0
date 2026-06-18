@@ -203,7 +203,7 @@ Adicione aqui imagens da aplicação para facilitar a visualização do projeto.
 
 ### Tela de Login Adm
 
-<img src="./docs/loginAdn.png" alt="Tela de Login Adm" width="800"/>
+<img src="./docs/loginAdm.png" alt="Tela de Login Adm" width="800"/>
 
 ### Tela de Login Docente
 
