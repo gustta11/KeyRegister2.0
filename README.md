@@ -202,17 +202,33 @@ Adicione aqui imagens da aplicação para facilitar a visualização do projeto.
 ```html
 <img src="./docs/login.png" alt="Tela de Login" width="800"/>
 ```
+### Tela de Login Adm
+
+```html
+<img src="./docs/loginAdn.png" alt="Tela de Login Adm" width="800"/>
+```
+### Tela de Login Docente
+
+```html
+<img src="./docs/loginDocente.png" alt="Tela de Login Docente" width="800"/>
+```
 
 ### Dashboard
 
 ```html
-<img src="./docs/dashboard.png" alt="Dashboard" width="800"/>
+<img src="./docs/painelAdm.png" alt="Dashboard" width="800"/>
 ```
 
-### Controle de Chaves
+### Painel Docente
 
 ```html
-<img src="./docs/chaves.png" alt="Controle de Chaves" width="800"/>
+<img src="./docs/painelDocente.png" alt="Painel do docente" width="800"/>
+```
+
+### Retirada feita
+
+```html
+<img src="./docs/retirada.png" alt="Retirada com sucesso!" width="800"/>
 ```
 
 ---
